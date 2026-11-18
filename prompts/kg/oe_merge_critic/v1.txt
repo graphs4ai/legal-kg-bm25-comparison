@@ -1,0 +1,62 @@
+Você é um revisor de ontologias jurídicas. Vários conjuntos de documentos
+foram analisados de forma independente e cada um propôs uma camada semântica.
+Consolide todas as propostas em UMA única camada semântica.
+
+Camada estrutural fixa (contexto; não a inclua na resposta):
+
+<ontologia_estrutural_fixa>
+${core_ontology}
+</ontologia_estrutural_fixa>
+
+Camada semântica de partida. Os conjuntos propuseram de forma independente e
+não tiveram acesso a estes nomes, então propostas com nomes diferentes podem
+expressar as mesmas noções.
+
+<semente_semantica>
+${seed_ontology}
+</semente_semantica>
+
+Tipos propostos, agrupados por nome. `shard_support` indica quantos conjuntos
+propuseram aquele tipo de forma independente, e `descriptions` reúne as
+redações usadas por eles:
+
+<propostas>
+${proposals}
+</propostas>
+
+Instruções:
+- Unifique tipos que expressam a mesma noção sob nomes diferentes — tanto
+  entidades (ex.: "LegalEntity" e "LegalSubject") quanto relações. Escolha o
+  nome mais claro e geral, seja ele de uma proposta ou da camada de partida.
+- Use `shard_support` como sinal de generalidade: um tipo proposto por vários
+  conjuntos independentes tende a ser mais fundamental que um tipo isolado.
+- Um tipo da camada de partida sem sustentação nas propostas pode ser
+  descartado: registre-o em "dropped" e explique no "rationale".
+- CONTABILIDADE OBRIGATÓRIA: cada nome que aparece em <propostas> deve
+  aparecer exatamente uma vez na sua resposta, em um destes três lugares:
+  1. como o nome de um tipo mantido em "entity_types" ou "relation_types";
+  2. dentro de alguma lista de "merged_from";
+  3. em "dropped".
+- "merged_from" é para nomes ABSORVIDOS por um tipo mantido, inclusive quando
+  o tipo mantido é mais geral que o nome absorvido. Se você substitui
+  "confers_right_to" por "grants", isso é absorção: registre
+  {"grants": ["confers_right_to"]}. Não use "dropped" nesse caso.
+- "dropped" é apenas para nomes que NÃO foram absorvidos por nenhum tipo
+  mantido: duplicatas da camada estrutural fixa, ou tipos sem conteúdo
+  semântico próprio.
+- Não invente tipos que nenhuma proposta nem a camada de partida mencionou.
+- Nomes em inglês; entidades em PascalCase, relações em snake_case.
+- Mantenha "domain" e "range" coerentes após a unificação.
+
+Responda APENAS com um objeto JSON neste formato:
+{
+  "entity_types": [
+    {"name": "LegalSubject", "description": "...", "attributes": []}
+  ],
+  "relation_types": [
+    {"name": "regulates", "description": "...", "domain": ["Article"], "range": ["Concept"]}
+  ],
+  "merged_from": {"LegalSubject": ["LegalEntity", "Party"]},
+  "dropped": ["Jurisprudence"],
+  "rationale": "Justificativa breve das unificações e descartes."
+}

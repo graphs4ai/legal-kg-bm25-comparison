@@ -1,0 +1,49 @@
+{
+  "test": {
+    "source": "data/oab/oab_2010_2018.jsonl",
+    "path": "data/oab/splits/test.jsonl",
+    "size": 1256,
+    "exam_editions": [
+      "2010-01",
+      "2010-02",
+      "2011-03",
+      "2011-04",
+      "2011-05",
+      "2012-06",
+      "2012-06a",
+      "2012-07",
+      "2012-08",
+      "2012-09",
+      "2013-10",
+      "2013-11",
+      "2013-12",
+      "2014-13",
+      "2014-14"
+    ],
+    "subject_labelled": true,
+    "sha256": "d79e3eaec92c60880c925e985752095887fad8d39d9a304f9b1250e24dca549a",
+    "purpose": "Reported set: the 15 exam editions with complete subject metadata, so subject-level analysis runs on the same set as the headline accuracy."
+  },
+  "dev": {
+    "source": "data/oab/oab_2010_2018.jsonl",
+    "path": "data/oab/splits/dev.jsonl",
+    "size": 954,
+    "exam_editions": [
+      "2014-15",
+      "2015-16",
+      "2015-17",
+      "2015-18",
+      "2016-19",
+      "2016-20",
+      "2016-20a",
+      "2016-21",
+      "2017-22",
+      "2017-23",
+      "2017-24",
+      "2018-25"
+    ],
+    "subject_labelled": false,
+    "sha256": "6d4b76737ae9777808bb12add8d2d371c06b12fb61d5705be767a122c238ca8b",
+    "purpose": "Tuning set: every edition the test split excludes, so no reported number is chosen on data it was tuned on."
+  }
+}

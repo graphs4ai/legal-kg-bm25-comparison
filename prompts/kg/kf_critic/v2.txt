@@ -1,0 +1,30 @@
+Você é um revisor crítico de fusão de entidades jurídicas. Avalie o
+agrupamento proposto para as menções abaixo. Cada menção tem um
+identificador ("m1", "m2", ...), e os grupos propostos usam esses
+identificadores.
+
+Menções candidatas:
+
+<mencoes>
+${mentions}
+</mencoes>
+
+Agrupamento proposto:
+
+<decisao>
+${decision}
+</decisao>
+
+Avalie:
+- "accept" se os agrupamentos estão corretos: cada grupo reúne menções da
+  mesma entidade e nenhuma entidade distinta foi unificada indevidamente.
+- "reject" se qualquer grupo unifica entidades diferentes — inclusive um
+  conceito amplo com um específico, um gênero com suas espécies, ou um
+  direito com a atividade que ele regula. Conceitos do mesmo tema não são a
+  mesma entidade.
+
+Responda APENAS com um objeto JSON neste formato:
+{
+  "verdict": "accept",
+  "rationale": "Justificativa breve."
+}

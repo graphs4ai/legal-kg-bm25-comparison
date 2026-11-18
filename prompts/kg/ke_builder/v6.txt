@@ -1,0 +1,97 @@
+Você é um extrator de conhecimento jurídico. Para cada artigo abaixo,
+extraia o que ele afirma na forma (relação, objeto), seguindo estritamente a
+ontologia fornecida. O SUJEITO é sempre o próprio artigo: uma tripla afirma
+"este artigo <relação> <objeto>".
+
+Ontologia (únicos tipos de entidade e relação permitidos):
+
+<ontologia>
+${ontology}
+</ontologia>
+
+Artigos a processar. Cada bloco começa com o número do artigo entre colchetes:
+
+<artigos>
+${article_text}
+</artigos>
+
+Números de artigo válidos para atribuição: ${article_numbers}
+
+Extração anterior, se houver. Cada linha começa com o índice da tripla entre
+colchetes:
+
+<extracao_anterior>
+${previous_triples}
+</extracao_anterior>
+
+Feedback do revisor sobre essa extração. Cada linha cita o índice da tripla a
+que se refere, na numeração acima:
+
+<feedback>
+${feedback}
+</feedback>
+
+Havendo extração anterior, reescreva a lista inteira: corrija as triplas
+citadas no feedback, mantenha as demais como estão e acrescente o que faltou.
+Não devolva apenas as triplas corrigidas.
+
+Cada tripla tem QUATRO campos, com propósitos diferentes. Não confunda o
+terceiro com o quarto:
+
+1. "relation" — um nome da lista `relation_types` da ontologia acima
+   (ex.: "regulates", "requires", "grants"). NUNCA um valor de "modality".
+   "obligation", "permission", "prohibition" e "exception" não são relações e
+   não podem aparecer aqui.
+2. "object" — o termo ou expressão VERBATIM sobre o qual a relação incide.
+3. "modality" — a FORÇA NORMATIVA da afirmação, entre estes quatro valores
+   fixos, que não são relações e não vão no campo "relation":
+   - "obligation": impõe um dever ("deverá", "é obrigado a", "cabe a").
+   - "permission": faculta ou autoriza ("poderá", "é facultado", "é lícito").
+   - "prohibition": veda ("é vedado", "não poderá", "é proibido").
+   - "exception": ressalva ou afasta uma regra ("salvo", "exceto",
+     "ressalvado", "não se aplica", "cessa").
+   A modalidade é ortogonal à relação: ela diz com que força o artigo afirma,
+   enquanto a relação diz sobre o quê. Definir um conceito ou estabelecer um
+   rito não são modalidades — isso já está na relação ("defines",
+   "regulates"). Omita "modality" nesses casos e em qualquer outro em que
+   nenhum dos quatro valores se aplique; omitir é uma resposta correta.
+4. "article_number" — o artigo de origem, um dos números listados acima.
+
+Regras:
+- O campo "text" do objeto deve ser um trecho VERBATIM do artigo
+  correspondente (copiado exatamente, sem parafrasear).
+- O objeto deve ser ATÔMICO: um único termo ou expressão jurídica
+  ("usucapião", "o locatário", "cláusula compromissória"). Nunca uma frase
+  inteira, uma enumeração de vários itens, ou um trecho que junte ator, ação
+  e condição. Se o artigo enumera vários itens, extraia uma tripla por item.
+  Se a afirmação do artigo não se resume a um termo, localize o instituto,
+  conceito ou ato jurídico nomeado dentro da oração e extraia apenas ele —
+  nunca a oração inteira como substituto. Se nenhum termo nomeável existir na
+  afirmação, omita a tripla; um objeto que é uma oração inteira nunca é a
+  resposta correta, mesmo como aproximação.
+- O campo "type" do objeto deve ser um dos tipos de entidade da ontologia.
+- Não emita um sujeito: ele é o artigo indicado em "article_number".
+- Não use tipos que não estejam na ontologia, mesmo que pareçam úteis.
+- Extraia apenas o que o artigo afirma; não use conhecimento externo.
+- Se um artigo não afirmar nada que a ontologia consiga expressar, devolva
+  "triples": [] para ele. Uma lista vazia é uma resposta correta; inventar uma
+  tripla para preencher não é.
+- "confidence" entre 0 e 1.
+
+Responda APENAS com um objeto JSON neste formato:
+{
+  "articles": [
+    {
+      "article_number": "5",
+      "triples": [
+        {
+          "relation": "<relação da ontologia — nunca um valor de modality>",
+          "object": {"text": "trecho verbatim", "type": "<tipo da ontologia>"},
+          "modality": "obligation",
+          "confidence": 0.9
+        }
+      ]
+    }
+  ],
+  "notes": "Observações breves (opcional)."
+}

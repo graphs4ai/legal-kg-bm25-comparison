@@ -1,0 +1,35 @@
+{
+  "kg_version": "kg_v1_1",
+  "ontology_version": "kg_v1_oe",
+  "semantic_nodes": 40395,
+  "semantic_edges": 104436,
+  "enriched_articles": 13608,
+  "patched_from": "kg_v1",
+  "articles_csv": "articles_v5.csv",
+  "patched_at": "2026-09-25T03:09:57.891649+00:00",
+  "nodes": 54611,
+  "edges": 123579,
+  "nodes_by_type": {
+    "NormativeAct": 142,
+    "Article": 14074,
+    "LegalSubject": 3391,
+    "LegalSanction": 1771,
+    "LegalAction": 15162,
+    "LegalObligation": 3606,
+    "LegalConcept": 16465
+  },
+  "edges_by_relation": {
+    "contains": 14074,
+    "refers_to": 4917,
+    "amends": 105,
+    "revokes": 47,
+    "mentions": 52080,
+    "regulates": 24222,
+    "prohibits": 4315,
+    "requires": 11587,
+    "grants": 4028,
+    "defines": 2220,
+    "attributes_competence_to": 3110,
+    "establishes_sanction": 2874
+  }
+}

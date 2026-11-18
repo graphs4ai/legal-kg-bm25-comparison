@@ -1,0 +1,20 @@
+__pycache__/
+*.py[cod]
+.venv/
+.env
+.vscode/
+.idea/
+.DS_Store
+*.log
+logs/
+
+# Raw sources, local only
+data/oab/raw_data/
+data/laws/legislaai/
+
+# Per-call build logs
+results/kg/*/calls/
+
+# Regenerable: embedding caches and unpacked runs
+results/retrieval/
+results/runs/*/run_*/results.jsonl

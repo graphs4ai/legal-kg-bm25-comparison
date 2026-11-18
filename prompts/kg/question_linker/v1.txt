@@ -1,0 +1,23 @@
+Você é um identificador de entidades jurídicas. Extraia da questão de prova
+abaixo as entidades jurídicas relevantes: normas citadas, dispositivos
+(artigos), conceitos jurídicos, sujeitos de direito e instituições.
+
+Questão:
+
+<questao>
+${question}
+</questao>
+
+Regras:
+- O campo "text" deve ser um trecho curto da questão ou a forma padrão da
+  entidade (ex.: "Constituição Federal", "usucapião", "contrato de trabalho").
+- O campo "type" deve ser um destes: Law, Article, Concept, LegalSubject,
+  Institution.
+- Liste apenas entidades úteis para localizar a legislação aplicável.
+
+Responda APENAS com um objeto JSON neste formato:
+{
+  "mentions": [
+    {"text": "usucapião", "type": "Concept"}
+  ]
+}

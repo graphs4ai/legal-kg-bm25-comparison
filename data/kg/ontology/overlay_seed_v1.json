@@ -1,0 +1,53 @@
+{
+  "version": "overlay_seed_v1",
+  "notes": "Starting vocabulary for the semantic layer. Every OE shard receives this same seed and may keep, rename, drop or extend it. Shards never see each other's proposals; the shared seed is what keeps independent shards from inventing different names for the same notion.",
+  "entity_types": [
+    {
+      "name": "Concept",
+      "description": "Conceito ou instituto jurídico (ex.: usucapião, prescrição, boa-fé objetiva)",
+      "attributes": []
+    },
+    {
+      "name": "LegalSubject",
+      "description": "Sujeito de direito ou papel jurídico (ex.: empregado, consumidor, advogado, herdeiro)",
+      "attributes": []
+    },
+    {
+      "name": "Institution",
+      "description": "Órgão, entidade ou instituição (ex.: OAB, STF, Ministério Público)",
+      "attributes": []
+    }
+  ],
+  "relation_types": [
+    {
+      "name": "regulates",
+      "description": "Dispositivo disciplina um conceito, sujeito ou instituição",
+      "domain": ["Article"],
+      "range": ["Concept", "LegalSubject", "Institution"]
+    },
+    {
+      "name": "defines",
+      "description": "Dispositivo define ou conceitua expressamente ('considera-se', 'entende-se por', 'para os fins desta lei'); não usar para enumerações, permissões ou finalidades",
+      "domain": ["Article"],
+      "range": ["Concept", "LegalSubject"]
+    },
+    {
+      "name": "requires",
+      "description": "Dispositivo impõe requisito, condição ou dever",
+      "domain": ["Article"],
+      "range": ["Concept", "LegalSubject", "Institution"]
+    },
+    {
+      "name": "prohibits",
+      "description": "Dispositivo veda conduta a um sujeito",
+      "domain": ["Article"],
+      "range": ["Concept", "LegalSubject", "Institution"]
+    },
+    {
+      "name": "grants",
+      "description": "Dispositivo confere direito, faculdade ou competência",
+      "domain": ["Article"],
+      "range": ["Concept", "LegalSubject", "Institution"]
+    }
+  ]
+}

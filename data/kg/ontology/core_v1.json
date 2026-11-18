@@ -1,0 +1,54 @@
+{
+  "version": "core_v1",
+  "notes": "Structural layer, built deterministically by src.kg.graph_store.build_backbone from the article corpus. Fixed: the OE agents receive it as context but may not modify it. Every type here corresponds to nodes or edges the backbone already emits.",
+  "entity_types": [
+    {
+      "name": "NormativeAct",
+      "description": "Ato normativo completo (Constituição, Lei Complementar, Lei Ordinária, Decreto-Lei, Decreto, Ato Normativo CFOAB)",
+      "attributes": ["act_id", "tipo", "hierarchy_level", "ano"]
+    },
+    {
+      "name": "Article",
+      "description": "Artigo de um ato normativo, na redação vigente no ano-alvo do corpus",
+      "attributes": [
+        "article_number",
+        "container",
+        "path",
+        "version_year",
+        "tokens"
+      ]
+    }
+  ],
+  "relation_types": [
+    {
+      "name": "contains",
+      "description": "Ato normativo contém artigo",
+      "domain": ["NormativeAct"],
+      "range": ["Article"]
+    },
+    {
+      "name": "refers_to",
+      "description": "Artigo remete a outro artigo ou ato normativo",
+      "domain": ["Article"],
+      "range": ["Article", "NormativeAct"]
+    },
+    {
+      "name": "amends",
+      "description": "Artigo altera a redação de outro artigo ou ato normativo",
+      "domain": ["Article"],
+      "range": ["Article", "NormativeAct"]
+    },
+    {
+      "name": "revokes",
+      "description": "Artigo revoga outro artigo ou ato normativo",
+      "domain": ["Article"],
+      "range": ["Article", "NormativeAct"]
+    },
+    {
+      "name": "mentions",
+      "description": "Artigo menciona uma entidade extraída. O range é aberto: são os tipos de entidade definidos na camada semântica. A camada semântica também acrescenta suas próprias relações entre Article e esses tipos; 'mentions' é a ligação genérica, não a única permitida.",
+      "domain": ["Article"],
+      "range": []
+    }
+  ]
+}

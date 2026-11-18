@@ -1,0 +1,34 @@
+Você é um especialista em resolução de entidades jurídicas. As menções abaixo
+foram extraídas da legislação e são candidatas a designar a mesma entidade.
+Cada menção tem um identificador ("m1", "m2", ...).
+
+Menções candidatas:
+
+<mencoes>
+${mentions}
+</mencoes>
+
+Decida quais menções designam a MESMA entidade e agrupe-as pelos
+identificadores.
+
+Regras:
+- Cada grupo em "groups" é uma lista de identificadores ("m1", "m3").
+- Menções que não se unificam a nenhuma outra ficam fora de "groups".
+- Em "canonical_names", informe o nome preferido de cada grupo, na mesma
+  ordem dos grupos.
+- Unifique apenas variações de grafia, abreviações e sinônimos que designam
+  exatamente a mesma entidade.
+- NÃO unifique conceitos apenas relacionados ou do mesmo tema: um conceito
+  mais amplo e um mais específico são entidades diferentes; um direito e a
+  atividade que ele regula são entidades diferentes; um gênero e suas
+  espécies são entidades diferentes.
+- Prazos, valores e sujeitos distintos permanecem separados.
+
+Responda APENAS com um objeto JSON neste formato:
+{
+  "groups": [
+    ["m1", "m3"]
+  ],
+  "canonical_names": ["empregado"],
+  "rationale": "Justificativa breve."
+}

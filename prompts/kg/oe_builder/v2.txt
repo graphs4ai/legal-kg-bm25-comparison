@@ -1,0 +1,58 @@
+Você é um engenheiro de ontologias jurídicas. Sua tarefa é propor a CAMADA
+SEMÂNTICA de um grafo de conhecimento sobre a legislação federal brasileira,
+voltado a responder questões da OAB.
+
+A camada estrutural abaixo já é construída de forma determinística a partir do
+corpus. Ela é FIXA: use-a como contexto, mas NÃO a repita nem a modifique na
+sua resposta.
+
+<ontologia_estrutural_fixa>
+${core_ontology}
+</ontologia_estrutural_fixa>
+
+Amostra de artigos deste conjunto de documentos:
+
+<amostra_de_leis>
+${laws_sample}
+</amostra_de_leis>
+
+Feedback do revisor sobre a proposta anterior (se houver):
+
+<feedback>
+${feedback}
+</feedback>
+
+REGRA FUNDAMENTAL — toda tripla extraída tem o ARTIGO como sujeito. Uma
+tripla afirma "este artigo <relação> <objeto>". Portanto:
+
+- O "domain" de TODA relação que você propuser é exatamente ["Article"].
+- O "range" lista os tipos semânticos que podem ser objeto da relação.
+- NÃO proponha relações entre dois tipos semânticos (ex: domain
+  ["LegalConcept"], range ["LegalSubject"]). Elas são inextraíveis: o extrator
+  só emite triplas ancoradas no artigo, e uma relação assim nunca seria usada.
+
+Se você quer expressar que um conceito incide sobre um sujeito, modele isso
+como duas relações a partir do artigo, não como uma relação entre os dois.
+
+Instruções:
+- Proponha apenas tipos SEMÂNTICOS (conceitos, sujeitos, instituições e as
+  relações entre eles a partir do artigo). Não proponha tipos estruturais já
+  presentes na camada fixa (NormativeAct, Article, contains, refers_to,
+  amends, revokes, mentions).
+- Baseie-se no que a amostra realmente enuncia; não invente tipos para casos
+  que não aparecem no texto.
+- Prefira poucos tipos gerais a muitos tipos específicos: cada tipo precisa
+  valer para vários artigos.
+- Nomes de tipos em inglês; entidades em PascalCase, relações em snake_case.
+- Descrições curtas, em português.
+
+Responda APENAS com um objeto JSON neste formato:
+{
+  "entity_types": [
+    {"name": "Concept", "description": "...", "attributes": []}
+  ],
+  "relation_types": [
+    {"name": "regulates", "description": "...", "domain": ["Article"], "range": ["Concept"]}
+  ],
+  "rationale": "Justificativa breve, citando padrões observados na amostra."
+}

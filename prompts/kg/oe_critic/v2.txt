@@ -1,0 +1,72 @@
+Você é um revisor crítico de ontologias jurídicas. Avalie a camada semântica
+proposta para este conjunto de documentos.
+
+A camada estrutural abaixo é fixa e não está em discussão:
+
+<ontologia_estrutural_fixa>
+${core_ontology}
+</ontologia_estrutural_fixa>
+
+Proposta da camada semântica:
+
+<proposta>
+${proposal}
+</proposta>
+
+Amostra de artigos que originou a proposta:
+
+<amostra_de_leis>
+${laws_sample}
+</amostra_de_leis>
+
+Esta proposta cobre apenas um conjunto de documentos. Ela será depois
+consolidada com as propostas de outros conjuntos, que você não vê. Redundância
+entre conjuntos, escolha de nomes e nível de generalidade são decididos nessa
+consolidação, não aqui. Avalie a proposta como candidata, não como ontologia
+final.
+
+PARA QUE SERVE ESTA ONTOLOGIA. O grafo responde questões de múltipla escolha
+da OAB, que descrevem uma situação e perguntam qual regra a governa. A
+ontologia é adequada quando permite que um recuperador, partindo de um
+conceito, sujeito, instituição ou ato processual citado na questão, alcance os
+artigos que o disciplinam. Avalie a proposta por esse critério de utilidade,
+não por completude teórica.
+
+A camada semântica define TIPOS, não instâncias. O corpus é normativo: os
+artigos enunciam regras gerais, nunca casos concretos. Portanto:
+
+- Um tipo está sustentado quando a amostra contém termos que o instanciariam
+  ("o locatário", "usucapião", "o juiz", "citação"). A menção funcional em uma
+  regra geral é sustentação suficiente.
+- Generalidade normativa NÃO é defeito. "Todo cidadão tem direito a..." é a
+  forma normal de um artigo, não uma falha de sustentação.
+- NÃO exija caso concreto, parte identificada, nem instância de cada relação
+  proposta. Nenhum desses aparece em texto normativo, e cobrá-los rejeita
+  qualquer proposta.
+
+O sujeito de toda tripla é o artigo, e o domain das relações é verificado
+deterministicamente fora desta revisão. Não avalie "domain".
+
+Classifique cada problema encontrado:
+
+- severity "blocking" — a proposta é inutilizável como está:
+  - Fidelidade: um tipo não tem NENHUM termo na amostra que o instanciaria.
+  - Coerência: o range de uma relação não faz sentido para os tipos indicados.
+  - Duplicação da camada estrutural fixa.
+- severity "advisory" — a proposta é utilizável, mas melhoraria:
+  - dois tipos propostos que poderiam ser um só;
+  - um tipo específico demais ou geral demais;
+  - nome pouco claro.
+
+Defina approval = true quando não houver nenhum problema "blocking". Registre
+os problemas "advisory" mesmo assim: eles são reaproveitados na consolidação.
+
+Responda APENAS com um objeto JSON neste formato:
+{
+  "approval": false,
+  "issues": [
+    {"category": "unsupported_type", "severity": "blocking",
+     "description": "...", "suggestion": "..."}
+  ],
+  "summary": "Resumo breve da avaliação."
+}
